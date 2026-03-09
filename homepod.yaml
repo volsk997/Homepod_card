@@ -119,7 +119,7 @@ cards:
             card_mod:
               style: |
                 {% set domain = 'media' %}
-                {% set file = '/local/cards_img/homepod_mini.png' %}
+                {% set file = '/local/cards_img/homepod_gost.png' %}
                 {% set entity = 'media_player.homepod' %}
                 {% set state_on = 'playing' %}
 
@@ -237,7 +237,7 @@ cards:
                     elif is_state(config.entity, 'paused') %}fas:play  {% elif
                     is_state(config.entity, 'idle') %}fas:play {% else  %}
                     mdi:alert-circle {% endif %}
-                  icon_color: 250,210,62
+                  icon_color: "1"
                   hold_action:
                     action: none
                   double_tap_action:
@@ -247,11 +247,11 @@ cards:
                       .: >
                         {% set hover = 'true' %}
 
-                        {% set stating = 'true' %}
+                        {% set stating = 'false' %}
 
-                        {% set color = 'rgba(250,210,62,0.1)' %}
+                        {% set color = 'rgba(120,120,120,0.2)' %}
 
-                        {% set hover_color_off = 'rgba(250,210,62,0.2)
+                        {% set hover_color_off = 'rgba(120,120,120,0.3)
                         !important' %}
 
                         {% include 'chip_settings_style.jinja' %}
