@@ -276,12 +276,12 @@ cards:
                         {% set stating = 'false' %}
                         {% include 'chip_settings_style.jinja' %}
                 - type: template
-                  entity: media_player.homepod_mini_gost
+                  entity: media_player.yandex_station_m00en2100jayck
                   tap_action:
                     action: perform-action
                     perform_action: script.turn_on
                     target:
-                      entity_id: script.yandex_station_play_pause_extended
+                      entity_id: script.homepod_play_pause_extended
                     data:
                       variables:
                         entity: media_player.homepod_mini_gost
@@ -289,8 +289,7 @@ cards:
                     {% if is_state(config.entity, 'playing') %}fas:pause  {%
                     elif is_state(config.entity, 'paused') %}fas:play  {% elif
                     is_state(config.entity, 'idle') %}fas:play {% else  %}
-                    mdi:alert-circle {% endif %}
-                  icon_color: "1"
+                    mdi:alert {% endif %}
                   hold_action:
                     action: none
                   double_tap_action:
@@ -300,11 +299,11 @@ cards:
                       .: >
                         {% set hover = 'true' %}
 
-                        {% set stating = 'false' %}
+                        {% set stating = 'true' %}
 
-                        {% set color = 'rgba(120,120,120,0.2)' %}
+                        {% set color = 'rgba(120,120,120,0.1)' %}
 
-                        {% set hover_color_off = 'rgba(120,120,120,0.3)
+                        {% set hover_color_off = 'rgba(120,120,120,0.2)
                         !important' %}
 
                         {% include 'chip_settings_style.jinja' %}
