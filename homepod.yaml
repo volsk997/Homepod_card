@@ -276,7 +276,7 @@ cards:
                         {% set stating = 'false' %}
                         {% include 'chip_settings_style.jinja' %}
                 - type: template
-                  entity: media_player.yandex_station_m00en2100jayck
+                  entity: media_player.homepod_mini_gost
                   tap_action:
                     action: perform-action
                     perform_action: script.turn_on
@@ -299,7 +299,7 @@ cards:
                       .: >
                         {% set hover = 'true' %}
 
-                        {% set stating = 'true' %}
+                        {% set stating = 'false' %}
 
                         {% set color = 'rgba(120,120,120,0.1)' %}
 
