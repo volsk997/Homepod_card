@@ -1,0 +1,52 @@
+sequence:
+  - variables:
+      initial_state: "{{ states(entity) }}"
+  - target:
+      entity_id: "{{ entity }}"
+    action: media_player.media_play_pause
+  - delay: "00:00:03"
+  - variables:
+      current_state: "{{ states(entity) }}"
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ initial_state == 'paused' }}"
+          - condition: template
+            value_template: "{{ current_state == 'playing' }}"
+        sequence: []
+      - conditions:
+          - condition: template
+            value_template: "{{ initial_state == 'playing' }}"
+          - condition: template
+            value_template: "{{ current_state == 'paused' }}"
+        sequence: []
+      - conditions:
+          - condition: template
+            value_template: "{{ initial_state == 'paused' }}"
+          - condition: template
+            value_template: "{{ current_state == 'paused' }}"
+        sequence:
+          - target:
+              entity_id: "{{ entity }}"
+            data:
+              media_content_id: включи музыку
+              media_content_type: command
+            action: media_player.play_media
+      - conditions:
+          - condition: template
+            value_template: "{{ initial_state == 'idle' }}"
+          - condition: template
+            value_template: "{{ current_state == 'idle' }}"
+        sequence:
+          - action: input_boolean.turn_on
+            metadata: {}
+            data: {}
+            target:
+              entity_id: input_boolean.appletv_play_music
+    default: []
+alias: "homepod_play_pause_extended "
+variables:
+  entity: ""
+mode: parallel
+description: ""
+max: 10
