@@ -19,3 +19,5 @@
 > [!IMPORTANT]
 > [Файлы](https://github.com/volsk997/custom_templates) с расширением .jinja разместить в папке **/custom_templates**, после чего выполнить действие **action: homeassistant.reload_custom_templates**
 
+> [!IMPORTANT]
+> Для запуска музыки на бездейтсвующей колонке используется автоматизация внутри приложения "Дом (Apple Home)". При включении переключателя input_boolean.appletv_play_music запускается плейлист "Моя станция"
