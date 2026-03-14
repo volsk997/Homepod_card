@@ -24,7 +24,60 @@ cards:
     cards:
       - type: custom:mushroom-chips-card
         chips:
+          - type: template
+            icon: |2-
+                {% if is_state_attr(config.entity, 'shuffle', true) %} mdi:shuffle
+                {% else %} mdi:shuffle-disabled
+                {% endif %}
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            entity: media_player.homepod_mini_gost
+            card_mod:
+              style: |
+                ha-card {
+                  opacity: 0.4 }   
+          - type: template
+            icon: |2-
+                {% if is_state_attr(config.entity, 'repeat', 'all') %} mdi:repeat-variant
+                {% elif is_state_attr(config.entity, 'repeat', 'one') %} mdi:repeat-once
+                {% else %} mdi:repeat-off
+                {% endif %}
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            entity: media_player.homepod_mini_gost
+            card_mod:
+              style: |
+                ha-card {
+                  opacity: 0.4 }   
           - type: spacer
+          - type: template
+            icon: |2-
+                {% if is_state_attr(config.entity, 'app_id', 'com.google.ios.youtube')%} mdi:youtube
+                {% elif is_state_attr(config.entity, 'app_id', 'com.apple.AirPlay')%} mdi:cast-audio-variant
+                {% elif is_state_attr(config.entity, 'app_id', 'com.apple.WatchList')%} mdi:sleep
+                {% elif is_state_attr(config.entity, 'app_id', 'com.apple.Music')%} fa6-brands:itunes-note
+                {% elif is_state_attr(config.entity, 'app_id', 'org.videolan.vlc-ios')%} mdi:vlc
+                {% else %} mdi:sleep
+                {% endif %}
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+            entity: media_player.homepod_mini_gost
+            card_mod:
+              style: |
+                ha-card {
+                  opacity: 0.4 }   
           - type: template
             icon: mdi:history
             tap_action:
@@ -33,7 +86,7 @@ cards:
               action: none
             double_tap_action:
               action: none
-            entity: sensor.homepod_gost_trek
+            entity: sensor.homepod_gostinaia_trek
             card_mod:
               style: |
                 ha-card {
@@ -51,7 +104,7 @@ cards:
               action: none
             double_tap_action:
               action: none
-            entity: media_player.homepod
+            entity: media_player.homepod_mini_gost
             card_mod:
               style: |
                 ha-card {
@@ -103,7 +156,7 @@ cards:
 
             secondary: ""
             icon: ""
-            entity: media_player.homepod
+            entity: media_player.homepod_mini_gost
             picture: ""
             badge_icon: ""
             badge_color: ""
@@ -120,7 +173,7 @@ cards:
               style: |
                 {% set domain = 'media' %}
                 {% set file = '/local/cards_img/homepod_gost.png' %}
-                {% set entity = 'media_player.homepod' %}
+                {% set entity = 'media_player.homepod_mini_gost' %}
                 {% set state_on = 'playing' %}
 
                 {% include 'cover_card_cover.jinja' %}
@@ -142,7 +195,7 @@ cards:
 
               {% endif %}
             icon: ""
-            entity: media_player.homepod
+            entity: media_player.homepod_mini_gost
             picture: ""
             badge_icon: ""
             badge_color: ""
@@ -169,7 +222,7 @@ cards:
                 entity: binary_sensor.stantsiia_mini_gostinaia_dlitelnost
                 state: "on"
             card:
-              entity: media_player.homepod
+              entity: media_player.homepod_mini_gost
               tap_action: none
               hide:
                 icon: true
@@ -199,7 +252,7 @@ cards:
           - type: conditional
             conditions:
               - condition: state
-                entity: media_player.homepod
+                entity: media_player.homepod_mini_gost
                 state_not: unavailable
             card:
               type: custom:mushroom-chips-card
@@ -209,7 +262,7 @@ cards:
                     action: call-service
                     service: media_player.media_previous_track
                     target:
-                      entity_id: media_player.homepod
+                      entity_id: media_player.homepod_mini_gost
                   icon: fas:backward-step
                   icon_color: "1"
                   hold_action:
@@ -223,7 +276,7 @@ cards:
                         {% set stating = 'false' %}
                         {% include 'chip_settings_style.jinja' %}
                 - type: template
-                  entity: media_player.homepod
+                  entity: media_player.homepod_mini_gost
                   tap_action:
                     action: perform-action
                     perform_action: script.turn_on
@@ -231,7 +284,7 @@ cards:
                       entity_id: script.yandex_station_play_pause_extended
                     data:
                       variables:
-                        entity: media_player.homepod
+                        entity: media_player.homepod_mini_gost
                   icon: >-
                     {% if is_state(config.entity, 'playing') %}fas:pause  {%
                     elif is_state(config.entity, 'paused') %}fas:play  {% elif
@@ -260,7 +313,7 @@ cards:
                     action: call-service
                     service: media_player.media_next_track
                     target:
-                      entity_id: media_player.homepod
+                      entity_id: media_player.homepod_mini_gost
                   icon: fas:forward-step
                   icon_color: "1"
                   hold_action:
@@ -283,11 +336,11 @@ cards:
           - type: conditional
             conditions:
               - condition: state
-                entity: media_player.homepod
+                entity: media_player.homepod_mini_gost
                 state_not: unavailable
             card:
               type: custom:mushroom-media-player-card
-              entity: media_player.homepod
+              entity: media_player.homepod_mini_gost
               volume_controls:
                 - volume_set
               layout: horizontal
@@ -352,7 +405,7 @@ cards:
           type: vertical-stack
           cards:
             - type: heading
-              icon: phu:homepod-mini
+              icon: phu:homepod_mini_gost-mini
               heading: Бар
               heading_style: title
               card_mod:
