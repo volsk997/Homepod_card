@@ -42,11 +42,12 @@ sequence:
             metadata: {}
             data: {}
             target:
-              entity_id: input_boolean.appletv_play_music
+              entity_id: input_boolean.homepod_play_{{user}}
     default: []
 alias: "homepod_play_pause_extended "
 variables:
   entity: ""
+  user: ""
 mode: parallel
 description: ""
 max: 10
