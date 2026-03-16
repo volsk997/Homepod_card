@@ -26,12 +26,11 @@ sequence:
           - condition: template
             value_template: "{{ current_state == 'paused' }}"
         sequence:
-          - target:
-              entity_id: "{{ entity }}"
-            data:
-              media_content_id: включи музыку
-              media_content_type: command
-            action: media_player.play_media
+          - action: input_boolean.turn_on
+            metadata: {}
+            data: {}
+            target:
+              entity_id: input_boolean.homepod_play_{{user}}
       - conditions:
           - condition: template
             value_template: "{{ initial_state == 'idle' }}"
@@ -46,8 +45,8 @@ sequence:
     default: []
 alias: "homepod_play_pause_extended "
 variables:
-  entity: ""
-  user: ""
+  entity: media_player.homepod_mini_gost
+  user: stanislav
 mode: parallel
 description: ""
 max: 10
