@@ -175,21 +175,19 @@ cards:
 
                 {% include 'cover_card_cover.jinja' %}
           - type: custom:mushroom-template-card
-            primary: >
-              {% if state_attr(config.entity,'media_title') is none or 
-              state_attr(config.entity,'media_title') == ''%}  Неизвестно
-
-              {% else%} {{state_attr(config.entity,
-              'media_title')|truncate(80)}}
-
+            primary: |-
+              {% if is_state(config.entity, 'playing') %}
+                {{ state_attr(config.entity, 'media_title') | default('Недоступно', true) }}
+              {% else %}
+                 Homepod Mini
               {% endif %}
-            secondary: >
-              {% if  state_attr(config.entity,'media_artist') is none %}
-              Неизвестно
-
-              {% else%} {{state_attr(config.entity,
-              'media_artist')|truncate(100)}}
-
+            secondary: |-
+              {% if is_state(config.entity, 'playing') %}
+                {{ state_attr(config.entity, 'media_artist') | default('Неизвестно', true) }}
+              {% elif is_state(config.entity, 'unavailable') %}
+                Неизвестно
+              {% else %}
+                Не исполняется
               {% endif %}
             icon: ""
             entity: media_player.homepod_mini_gost
@@ -539,3 +537,6 @@ cards:
               {% set icon_size = 30 %}
               {% set chip_spacing = 20 %}
               {% include 'fixed_bottom_bar.jinja' %}
+    grid_options:
+      columns: 6
+      rows: auto
