@@ -179,18 +179,16 @@ cards:
               {% if state_attr(config.entity,'media_title') is none or 
               state_attr(config.entity,'media_title') == ''%}  Homepod Mini
 
+              {% elif state_attr(config.entity,'media_title') == 'Streaming with
+              pyatv' %} Стриминг из локальной сети
+
               {% else%} {{state_attr(config.entity,
               'media_title')|truncate(80)}}
 
               {% endif %}
             secondary: >
-              {% if  state_attr(config.entity,'media_artist') is none %} Не
-              исполняется
-
-              {% else%} {{state_attr(config.entity,
-              'media_artist')|truncate(100)}}
-
-              {% endif %}
+              {{ state_attr(config.entity, 'media_artist') |
+              default('Неизвестно', true) }}
             icon: ""
             entity: media_player.homepod_mini_gost
             picture: ""
