@@ -186,9 +186,9 @@ cards:
               'media_title')|truncate(80)}}
 
               {% endif %}
-            secondary: >
+            secondary: >-
               {{ state_attr(config.entity, 'media_artist') |
-              default('Неизвестно', true) }}
+              default('Неизвестно', true) | truncate(100)}}
             icon: ""
             entity: media_player.homepod_mini_gost
             picture: ""
@@ -211,33 +211,44 @@ cards:
                    --card-primary-font-size: 20px;
                    --card-secondary-color: rgba(var(--rgb-primary-text-color), 0.6);
                   }
-          - entity: media_player.homepod_mini_gost
-            tap_action: none
-            hide:
-              icon: true
-              name: true
-              runtime: true
-              source: true
-              power: true
-              state_label: true
-              volume: true
-              info: true
-              progress: false
-              controls: true
-            more_info: false
-            type: custom:mini-media-player
-            toggle_power: false
-            group: true
-            volume_stateless: false
-            card_mod:
-              style:
-                .: |
-                  ha-card {
-                    margin: 20px 20px 10px 20px;
-                    height: var(--mmp-progress-height);
-                    --mmp-accent-color: rgba(var(--rgb-primary-text-color),1);;
-                    --ha-card-border-width: 0;
-                  }
+          - type: conditional
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: media_player.homepod_mini_gost
+                    state: playing
+                  - condition: state
+                    entity: media_player.homepod_mini_gost
+                    state: paused
+            card:
+              entity: media_player.homepod_mini_gost
+              tap_action: none
+              hide:
+                icon: true
+                name: true
+                runtime: true
+                source: true
+                power: true
+                state_label: true
+                volume: true
+                info: true
+                progress: false
+                controls: true
+              more_info: false
+              type: custom:mini-media-player
+              toggle_power: false
+              group: true
+              volume_stateless: false
+              card_mod:
+                style:
+                  .: |
+                    ha-card {
+                      margin: 20px 20px 10px 20px;
+                      height: var(--mmp-progress-height);
+                      --mmp-accent-color: rgba(var(--rgb-primary-text-color),1);;
+                      --ha-card-border-width: 0;
+                    }
           - type: conditional
             conditions:
               - condition: state
