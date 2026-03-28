@@ -1,0 +1,4 @@
+{% set g = 'media_player.homepod_mini_gost' %}
+{% set v = 'media_player.homepod_mini_van' %}
+
+{{ (states(g) == states(v))  and state_attr(g, 'media_title') == state_attr(v,'media_title') and state_attr(g, 'media_artist') == state_attr(v,'media_artist')}}
