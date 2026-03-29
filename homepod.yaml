@@ -64,7 +64,7 @@ cards:
                 state: "on"
             chip:
               type: template
-              icon: mdi:play-box-multiple
+              icon: mdi:home-sound-in
               entity: input_boolean.multirum_homepod
               tap_action:
                 action: navigate
@@ -308,10 +308,14 @@ cards:
                     target:
                       entity_id: media_player.homepod_mini_gost
                   icon: >-
-                    {% if is_state(config.entity, 'playing') %}fas:pause  {%
-                    elif is_state(config.entity, 'paused') %}fas:play  {% elif
-                    is_state(config.entity, 'idle') %}fas:play {% else  %}
-                    mdi:alert {% endif %}
+                    {% set title = state_attr(config.entity,'media_title') %}
+
+                    {% if state_attr(config.entity,'media_title') is none or
+                    state_attr(config.entity,'media_title') == '' or
+                    states(config.entity) in ['unknown', 'unavailable',
+                    'none']%} fas:lock {% elif is_state(config.entity,
+                    'playing') %} fas:pause {% elif is_state(config.entity,
+                    'paused') %} fas:play {% else%}fas:play {% endif %}
                   hold_action:
                     action: none
                   double_tap_action:
@@ -359,6 +363,9 @@ cards:
               - condition: state
                 entity: media_player.homepod_mini_gost
                 state_not: unavailable
+              - condition: state
+                entity: binary_sensor.multirum_homepod
+                state: "off"
             card:
               type: custom:mushroom-media-player-card
               entity: media_player.homepod_mini_gost
@@ -461,7 +468,7 @@ cards:
                   - 1a1897c1b5d24702ae00645a47e23e99
             chip:
               type: template
-              icon: mdi:star
+              icon: mdi:face-man-shimmer
               entity: input_boolean.homepod_play_stanislav
               tap_action:
                 action: toggle
@@ -482,7 +489,7 @@ cards:
                   - 74b41be9c40e417888b511bff15eebe4
             chip:
               type: template
-              icon: mdi:star
+              icon: mdi:face-woman-shimmer
               entity: input_boolean.homepod_play_melkaia
               tap_action:
                 action: toggle
@@ -503,13 +510,35 @@ cards:
                 state: "off"
             chip:
               type: template
-              icon: mdi:play-box-multiple
+              icon: mdi:home-sound-in
               entity: input_boolean.multirum_homepod
               tap_action:
                 action: toggle
               double_tap_action:
                 action: none
               hold_action:
+                action: none
+              card_mod:
+                style:
+                  .: |
+                    {% set hover = 'true' %}
+                    {% set stating = 'false' %}
+                    {% include 'chip_settings_style.jinja' %}
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: binary_sensor.multirum_homepod
+                state: "on"
+            chip:
+              type: template
+              tap_action:
+                action: navigate
+                navigation_path: "#multiroom"
+              icon: mdi:dots-horizontal
+              icon_color: "1"
+              hold_action:
+                action: none
+              double_tap_action:
                 action: none
               card_mod:
                 style:
@@ -548,3 +577,194 @@ cards:
     grid_options:
       columns: 6
       rows: auto
+  - type: vertical-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: pop-up
+        hash: "#multiroom"
+        margin_top_mobile: calc(100vh - 350px)
+        margin_top_desktop: calc(100vh - 300px)
+        tap_action:
+          action: none
+        double_tap_action:
+          action: none
+        hold_action:
+          action: none
+        show_header: false
+        close_by_clicking_outside: false
+        backdrop_blur: "5"
+        bg_blur: "100"
+        bg_opacity: "50"
+        button_type: name
+        styles: |
+          #root {
+            border: 1px solid rgba(var(--rgb-primary-text-color),0.1);
+            background: rgba(255, 255, 255, 0.1);
+            }
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            content: Мультирум
+            double_tap_action:
+              action: none
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            icon: ""
+          - type: spacer
+          - type: back
+            card_mod:
+              style:
+                .: |
+                  {% set hover = 'true' %}
+                  {% set stating = 'false' %}
+                  {% include 'chip_settings_style.jinja' %}
+        layout_options:
+          grid_columns: full
+        card_mod:
+          style:
+            mushroom-back-chip:nth-child(3)$: |
+              ha-state-icon {
+                --card-mod-icon: mdi:close;
+              }
+            .: |
+              {% include 'pop_up_title.jinja' %}
+      - square: false
+        type: grid
+        cards:
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                primary: Гостиная
+                secondary: ""
+                icon: mdi:volume-high
+                badge_icon: ""
+                tap_action:
+                  action: none
+                icon_color: "1"
+                double_tap_action:
+                  action: none
+                badge_color: ""
+                fill_container: true
+                picture: ""
+                hold_action:
+                  action: none
+                layout: horizontal
+                card_mod:
+                  style:
+                    mushroom-shape-icon$: |
+                      .shape {
+                        --shape-color: none !important;
+                        --icon-symbol-size:28px;
+                        padding-right: 0px;
+
+                      }
+                    .: |
+                      ha-card { 
+                        background-color: rgba(255,255,255,0) ;
+                      } 
+              - type: custom:mushroom-media-player-card
+                entity: media_player.homepod_mini_gost
+                volume_controls:
+                  - volume_set
+                layout: horizontal
+                secondary_info: none
+                use_media_info: false
+                icon_type: none
+                primary_info: none
+                card_mod:
+                  style:
+                    mushroom-media-player-volume-control$:
+                      mushroom-slider$: |
+                        .slider {
+                          border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px !important;
+                        --main-color: #505050 !important;
+                        --bg-color: #50505055 !important;
+                          }
+                    .: |
+                      ha-card {
+                        margin-top: -15px;
+                        background-color: rgba(255,255,255,0) }};
+                        border-width: 0px;
+                          }
+            card_mod:
+              style:
+                .: |
+                  ha-card {
+                      background-color: rgba(var(--rgb-primary-text-color), 0.05) !important;
+                      border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                      border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
+                      }
+                  ha-card:hover {
+                      background-color: rgba(var(--rgb-primary-text-color), 0.1) !important;
+                  }  
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:mushroom-template-card
+                secondary: ""
+                icon: mdi:volume-high
+                badge_icon: ""
+                tap_action:
+                  action: none
+                icon_color: "1"
+                double_tap_action:
+                  action: none
+                badge_color: ""
+                fill_container: true
+                picture: ""
+                hold_action:
+                  action: none
+                layout: horizontal
+                primary: Ванная
+                card_mod:
+                  style:
+                    mushroom-shape-icon$: |
+                      .shape {
+                        --shape-color: none !important;
+                        --icon-symbol-size:28px;
+                        padding-right: 0px;
+
+                      }
+                    .: |
+                      ha-card { 
+                        background-color: rgba(255,255,255,0) ;
+                      } 
+              - type: custom:mushroom-media-player-card
+                entity: media_player.homepod_mini_van
+                volume_controls:
+                  - volume_set
+                layout: horizontal
+                secondary_info: none
+                use_media_info: false
+                icon_type: none
+                primary_info: none
+                card_mod:
+                  style:
+                    mushroom-media-player-volume-control$:
+                      mushroom-slider$: |
+                        .slider {
+                          border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px !important;
+                        --main-color: #c8c8c8 !important;
+                        --bg-color: #c8c8c855 !important;
+                          }
+                    .: |
+                      ha-card {
+                        margin-top: -15px;
+                        background-color: rgba(255,255,255,0) }};
+                        border-width: 0px;
+                          }
+            card_mod:
+              style:
+                .: |
+                  ha-card {
+                      background-color: rgba(var(--rgb-primary-text-color), 0.05) !important;
+                      border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
+                      border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
+                      } 
+                  ha-card:hover {
+                      background-color: rgba(var(--rgb-primary-text-color), 0.1) !important;
+                  }  
+        columns: 2
+    grid_options:
+      columns: full
