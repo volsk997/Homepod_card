@@ -1,5 +1,7 @@
 # 🍄 Mushroom-Homepod_card
 
+<img width="748" height="1186" alt="Снимок экрана — 2026-03-29 в 17 04 57" src="https://github.com/user-attachments/assets/8df23cc2-7ef1-4f34-b9a9-cb4b93229bf7" />
+
 
 ## Карта для Homepod на базе нескольких карт:
  1. [Mushrooms](https://github.com/piitaya/lovelace-mushroom)
