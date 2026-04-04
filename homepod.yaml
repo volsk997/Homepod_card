@@ -65,10 +65,10 @@ cards:
             chip:
               type: template
               icon: mdi:home-sound-in
+              picture: /local/png_icons/homepod_stereo.png
               entity: input_boolean.multirum_homepod
               tap_action:
-                action: navigate
-                navigation_path: /dashboard-iphone/homepod
+                action: none
               double_tap_action:
                 action: none
               hold_action:
@@ -76,11 +76,8 @@ cards:
               card_mod:
                 style: |
                   ha-card {
-                    opacity: 0.4 }   
-                  ha-card:hover {
-                    opacity: 1 }     
-                  ha-card:active {
-                    scale: 0.9;
+                    opacity: 0.4;
+
                   }  
           - type: spacer
           - type: template
@@ -486,6 +483,27 @@ cards:
             conditions:
               - condition: user
                 users:
+                  - 1a1897c1b5d24702ae00645a47e23e99
+            chip:
+              type: template
+              icon: mdi:star-circle
+              entity: input_boolean.novaia_muzyka_homepod_gostinaia
+              tap_action:
+                action: toggle
+              double_tap_action:
+                action: none
+              hold_action:
+                action: none
+              card_mod:
+                style:
+                  .: |
+                    {% set hover = 'true' %}
+                    {% set stating = 'false' %}
+                    {% include 'chip_settings_style.jinja' %}
+          - type: conditional
+            conditions:
+              - condition: user
+                users:
                   - 74b41be9c40e417888b511bff15eebe4
             chip:
               type: template
@@ -511,6 +529,7 @@ cards:
             chip:
               type: template
               icon: mdi:home-sound-in
+              picture: /local/png_icons/homepod_stereo_play_big.png
               entity: input_boolean.multirum_homepod
               tap_action:
                 action: toggle
