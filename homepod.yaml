@@ -483,27 +483,6 @@ cards:
             conditions:
               - condition: user
                 users:
-                  - 1a1897c1b5d24702ae00645a47e23e99
-            chip:
-              type: template
-              icon: mdi:star-circle
-              entity: input_boolean.novaia_muzyka_homepod_gostinaia
-              tap_action:
-                action: toggle
-              double_tap_action:
-                action: none
-              hold_action:
-                action: none
-              card_mod:
-                style:
-                  .: |
-                    {% set hover = 'true' %}
-                    {% set stating = 'false' %}
-                    {% include 'chip_settings_style.jinja' %}
-          - type: conditional
-            conditions:
-              - condition: user
-                users:
                   - 74b41be9c40e417888b511bff15eebe4
             chip:
               type: template
@@ -521,6 +500,42 @@ cards:
                     {% set hover = 'true' %}
                     {% set stating = 'false' %}
                     {% include 'chip_settings_style.jinja' %}
+          - type: conditional
+            conditions:
+              - condition: user
+                users:
+                  - 1a1897c1b5d24702ae00645a47e23e99
+            chip:
+              type: template
+              icon: mdi:star-circle
+              entity: input_boolean.novaia_muzyka_homepod_gostinaia
+              tap_action:
+                action: toggle
+              double_tap_action:
+                action: none
+              hold_action:
+                action: none
+              card_mod:
+                style:
+                  .: |
+                    {% set hover = 'true' %}
+                    {% set stating = 'false' %}
+                    {% include 'chip_settings_style.jinja' %}
+          - type: template
+            icon: mdi:tree
+            entity: input_boolean.homepod_gostinaia_les
+            tap_action:
+              action: toggle
+            double_tap_action:
+              action: none
+            hold_action:
+              action: none
+            card_mod:
+              style:
+                .: |
+                  {% set hover = 'true' %}
+                  {% set stating = 'false' %}
+                  {% include 'chip_settings_style.jinja' %}
           - type: conditional
             conditions:
               - condition: state
