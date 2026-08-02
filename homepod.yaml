@@ -1,804 +1,262 @@
-type: grid
+type: custom:bubble-card
+card_type: pop-up
+hash: "#homepod_gost"
+margin_top_mobile: auto
+margin_top_desktop: auto
+tap_action:
+  action: none
+double_tap_action:
+  action: none
+hold_action:
+  action: none
+show_header: false
+close_by_clicking_outside: false
+backdrop_blur: "5"
+bg_blur: "100"
+bg_opacity: "50"
+button_type: name
+styles: |
+  #root {
+    border: 1px solid rgba(var(--rgb-primary-text-color),0.1);
+    background: rgba(255, 255, 255, 0.1); 
+    }
+sub_button:
+  main: []
+  bottom: []
 cards:
-  - type: conditional
-    conditions:
-      - condition: state
-        entity: "12"
-        state: "12"
-    card:
-      type: vertical-stack
-      cards:
-        - type: heading
-          icon: mdi:information
-          heading: Статусная строка
-          heading_style: title
-          card_mod:
-            style: |
-              ha-card {
-                   background: rgba(200,100,0) !important;
-                 }
-    grid_options:
-      columns: 6
-      rows: auto
-  - type: custom:vertical-stack-in-card
-    cards:
-      - type: custom:mushroom-chips-card
-        chips:
-          - type: template
-            icon: |2-
-                {% if is_state_attr(config.entity, 'shuffle', true) %} mdi:shuffle
-                {% else %} mdi:shuffle-disabled
-                {% endif %}
-            tap_action:
-              action: none
-            hold_action:
-              action: none
-            double_tap_action:
-              action: none
-            entity: media_player.homepod_mini_gost
-            card_mod:
-              style: |
-                ha-card {
-                  opacity: 0.4 }   
-          - type: template
-            icon: |2-
-                {% if is_state_attr(config.entity, 'repeat', 'all') %} mdi:repeat-variant
-                {% elif is_state_attr(config.entity, 'repeat', 'one') %} mdi:repeat-once
-                {% else %} mdi:repeat-off
-                {% endif %}
-            tap_action:
-              action: none
-            hold_action:
-              action: none
-            double_tap_action:
-              action: none
-            entity: media_player.homepod_mini_gost
-            card_mod:
-              style: |
-                ha-card {
-                  opacity: 0.4 }   
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: binary_sensor.multirum_homepod
-                state: "on"
-            chip:
-              type: template
-              icon: mdi:home-sound-in
-              picture: /local/png_icons/homepod_stereo.png
-              entity: input_boolean.multirum_homepod
-              tap_action:
-                action: none
-              double_tap_action:
-                action: none
-              hold_action:
-                action: none
-              card_mod:
-                style: |
-                  ha-card {
-                    opacity: 0.4;
-
-                  }  
-          - type: spacer
-          - type: template
-            icon: |2-
-                {% if is_state_attr(config.entity, 'app_id', 'com.apple.tvairplayd')%} mdi:cast-audio-variant
-                {% elif is_state_attr(config.entity, 'app_id', 'com.apple.Music')%} fa6-brands:itunes-note
-                {% else %} mdi:sleep
-                {% endif %}
-            tap_action:
-              action: none
-            hold_action:
-              action: none
-            double_tap_action:
-              action: none
-            entity: media_player.homepod_mini_gost
-            card_mod:
-              style: |
-                ha-card {
-                  opacity: 0.4 }   
-          - type: template
-            icon: mdi:history
-            tap_action:
-              action: more-info
-            hold_action:
-              action: none
-            double_tap_action:
-              action: none
-            entity: sensor.homepod_gostinaia_trek
-            card_mod:
-              style: |
-                ha-card {
-                  opacity: 0.4 }   
-                ha-card:hover {
-                  opacity: 1 }     
-                ha-card:active {
-                  scale: 0.9;
-                }  
-          - type: template
-            icon: mdi:information
-            tap_action:
-              action: more-info
-            hold_action:
-              action: none
-            double_tap_action:
-              action: none
-            entity: media_player.homepod_mini_gost
-            card_mod:
-              style: |
-                ha-card {
-                  opacity: 0.4 }   
-                ha-card:hover {
-                  opacity: 1 }     
-                ha-card:active {
-                  scale: 0.9;
-                }  
-        alignment: start
-        card_mod:
-          style: |
-            {% set top = 7 %}
-            {% set chip_height = 48 %}
-            {% include 'title_chips_scrollable.jinja' %}
-    grid_options:
-      columns: 6
-      rows: auto
-    card_mod:
-      style: |
-        {% set top = 100 %}
-        {% include 'fixed_settings.jinja' %}
-  - type: conditional
-    conditions:
-      - condition: state
-        entity: "12"
-        state: "12"
-    card:
-      type: vertical-stack
-      cards:
-        - type: heading
-          icon: mdi:view-dashboard
-          heading: Карта
-          heading_style: title
-          card_mod:
-            style: |
-              ha-card {
-                   background: rgba(200,0,100) !important;
-                 }
-    grid_options:
-      columns: 6
-      rows: auto
-  - type: custom:vertical-stack-in-card
-    cards:
-      - type: vertical-stack
-        cards:
-          - type: custom:mushroom-template-card
-            primary: |+
-
-            secondary: ""
-            icon: ""
-            entity: media_player.homepod_mini_gost
-            picture: ""
-            badge_icon: ""
-            badge_color: ""
-            layout: vertical
-            icon_color: ""
-            tap_action:
-              action: none
-            double_tap_action:
-              action: none
-            fill_container: true
-            hold_action:
-              action: none
-            card_mod:
-              style: |
-                {% set domain = 'media' %}
-                {% set file = '/local/cards_img/homepod_gost.png' %}
-                {% set entity = 'media_player.homepod_mini_gost' %}
-                {% set state_on = 'playing' %}
-
-                {% include 'cover_card_cover.jinja' %}
-          - type: custom:mushroom-template-card
-            primary: >
-              {% if state_attr(config.entity,'media_title') is none or 
-              state_attr(config.entity,'media_title') == ''%}  Homepod Mini
-
-              {% elif state_attr(config.entity,'media_title') == 'Streaming with
-              pyatv' %} Стриминг из локальной сети
-
-              {% else%} {{state_attr(config.entity,
-              'media_title')|truncate(80)}}
-
-              {% endif %}
-            secondary: >-
-              {{ state_attr(config.entity, 'media_artist') |
-              default('Неизвестно', true) | truncate(100)}}
-            icon: ""
-            entity: media_player.homepod_mini_gost
-            picture: ""
-            badge_icon: ""
-            badge_color: ""
-            layout: vertical
-            icon_color: ""
-            tap_action:
-              action: none
-            double_tap_action:
-              action: none
-            fill_container: true
-            card_mod:
-              style:
-                .: |
-                  {% include 'cover_device_name.jinja' %}
-                mushroom-state-info$: |
-                  .container {
-                   --card-secondary-font-size: 15px;
-                   --card-primary-font-size: 20px;
-                   --card-secondary-color: rgba(var(--rgb-primary-text-color), 0.6);
-                  }
-          - type: conditional
-            conditions:
-              - condition: or
-                conditions:
-                  - condition: state
-                    entity: media_player.homepod_mini_gost
-                    state: playing
-                  - condition: state
-                    entity: media_player.homepod_mini_gost
-                    state: paused
-            card:
-              entity: media_player.homepod_mini_gost
-              tap_action: none
-              hide:
-                icon: true
-                name: true
-                runtime: true
-                source: true
-                power: true
-                state_label: true
-                volume: true
-                info: true
-                progress: false
-                controls: true
-              more_info: false
-              type: custom:mini-media-player
-              toggle_power: false
-              group: true
-              volume_stateless: false
-              card_mod:
-                style:
-                  .: |
-                    ha-card {
-                      margin: 20px 20px 10px 20px;
-                      height: var(--mmp-progress-height);
-                      --mmp-accent-color: rgba(var(--rgb-primary-text-color),1);;
-                      --ha-card-border-width: 0;
-                    }
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: media_player.homepod_mini_gost
-                state_not: unavailable
-            card:
-              type: custom:mushroom-chips-card
-              chips:
-                - type: template
-                  tap_action:
-                    action: call-service
-                    service: media_player.media_previous_track
-                    target:
-                      entity_id: media_player.homepod_mini_gost
-                  icon: fas:backward-step
-                  icon_color: "1"
-                  hold_action:
-                    action: none
-                  double_tap_action:
-                    action: none
-                  card_mod:
-                    style:
-                      .: |
-                        {% set hover = 'true' %}
-                        {% set stating = 'false' %}
-                        {% include 'chip_settings_style.jinja' %}
-                - type: template
-                  entity: media_player.homepod_mini_gost
-                  tap_action:
-                    action: perform-action
-                    perform_action: media_player.media_play_pause
-                    target:
-                      entity_id: media_player.homepod_mini_gost
-                  icon: >-
-                    {% set title = state_attr(config.entity,'media_title') %}
-
-                    {% if state_attr(config.entity,'media_title') is none or
-                    state_attr(config.entity,'media_title') == '' or
-                    states(config.entity) in ['unknown', 'unavailable',
-                    'none']%} fas:lock {% elif is_state(config.entity,
-                    'playing') %} fas:pause {% elif is_state(config.entity,
-                    'paused') %} fas:play {% else%}fas:play {% endif %}
-                  hold_action:
-                    action: none
-                  double_tap_action:
-                    action: none
-                  card_mod:
-                    style:
-                      .: >
-                        {% set hover = 'true' %}
-
-                        {% set stating = 'false' %}
-
-                        {% set color = 'rgba(120,120,120,0.2)' %}
-
-                        {% set hover_color_off = 'rgba(120,120,120,0.3)
-                        !important' %}
-
-                        {% include 'chip_settings_style.jinja' %}
-                - type: template
-                  tap_action:
-                    action: call-service
-                    service: media_player.media_next_track
-                    target:
-                      entity_id: media_player.homepod_mini_gost
-                  icon: fas:forward-step
-                  icon_color: "1"
-                  hold_action:
-                    action: none
-                  double_tap_action:
-                    action: none
-                  card_mod:
-                    style:
-                      .: |
-                        {% set hover = 'true' %}
-                        {% set stating = 'false' %}
-                        {% include 'chip_settings_style.jinja' %}
-              alignment: justify
-              layout_options:
-                grid_columns: full
-              card_mod:
-                style:
-                  .: |
-                    {% include 'chip_buttons_big.jinja' %}
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: media_player.homepod_mini_gost
-                state_not: unavailable
-              - condition: state
-                entity: binary_sensor.multirum_homepod
-                state: "off"
-            card:
-              type: custom:mushroom-media-player-card
-              entity: media_player.homepod_mini_gost
-              volume_controls:
-                - volume_set
-              layout: horizontal
-              primary_info: none
-              secondary_info: none
-              icon_type: none
-              card_mod:
-                style:
-                  mushroom-media-player-volume-control$: |
-                    mushroom-slider {
-                      --main-color: #505050 !important;
-                      --bg-color: #50505055 !important;
-                      --control-height: 25px !important;
-                    }
-                  .: >
-                    ha-card {
-                      background: transparent !important;
-                      opacity: 100%;
-                      margin-top: 0px;
-                      border-width: 0px;
-                      margin: 20px 0px 20px;
-                    }
-
-
-
-                    @media (pointer: fine) {
-                      ha-card:hover {
-                        background: {{(states('input_text.s_card_background_off_hover')) }};
-                    }
-
-                    @media (min-width: 1150px) {
-
-                    ha-card {
-                      margin: 20px {{space|default(150)}}px 20px  ;
-                    }
-
-                    @media (min-aspect-ratio: 1.001/1) and (max-aspect-ratio:
-                    1000/1) and (max-width: 2300px), (min-aspect-ratio: 2.1/1) {
-
-                      ha-card {
-                      margin: 20px {{space|default(0)}}px 20px  ;
-                      }
-                    }
-        grid_options:
-          columns: 24
-          rows: auto
-    grid_options:
-      columns: 6
-      rows: auto
-    card_mod:
-      style: |
-        {% set top = 160 %}
-        {% include 'fixed_settings.jinja' %}
-  - type: vertical-stack
-    cards:
-      - type: conditional
-        conditions:
-          - condition: state
-            entity: "12"
-            state: "12"
-        card:
-          type: vertical-stack
-          cards:
-            - type: heading
-              icon: phu:homepod_mini_gost-mini
-              heading: Бар
-              heading_style: title
-              card_mod:
-                style: |
-                  ha-card {
-                       background: rgba(100,100,60) !important;
-                     }
-        grid_options:
-          columns: 6
-          rows: auto
-      - type: custom:button-card
-        name: null
-        styles:
-          card:
-            - height: 100px
-            - background: transparent
-            - border: none
-        action: none
-      - type: custom:mushroom-chips-card
-        chips:
-          - type: back
-            card_mod:
-              style:
-                .: |
-                  {% set hover = 'true' %}
-                  {% set stating = 'false' %}
-                  {% include 'chip_settings_style.jinja' %}
-          - type: conditional
-            conditions:
-              - condition: user
-                users:
-                  - 1a1897c1b5d24702ae00645a47e23e99
-            chip:
-              type: template
-              icon: mdi:face-man-shimmer
-              entity: input_boolean.homepod_play_stanislav
-              tap_action:
-                action: toggle
-              double_tap_action:
-                action: none
-              hold_action:
-                action: none
-              card_mod:
-                style:
-                  .: |
-                    {% set hover = 'true' %}
-                    {% set stating = 'false' %}
-                    {% include 'chip_settings_style.jinja' %}
-          - type: conditional
-            conditions:
-              - condition: user
-                users:
-                  - 74b41be9c40e417888b511bff15eebe4
-            chip:
-              type: template
-              icon: mdi:face-woman-shimmer
-              entity: input_boolean.homepod_play_melkaia
-              tap_action:
-                action: toggle
-              double_tap_action:
-                action: none
-              hold_action:
-                action: none
-              card_mod:
-                style:
-                  .: |
-                    {% set hover = 'true' %}
-                    {% set stating = 'false' %}
-                    {% include 'chip_settings_style.jinja' %}
-          - type: conditional
-            conditions:
-              - condition: user
-                users:
-                  - 1a1897c1b5d24702ae00645a47e23e99
-            chip:
-              type: template
-              icon: mdi:star-circle
-              entity: input_boolean.novaia_muzyka_homepod_gostinaia
-              tap_action:
-                action: toggle
-              double_tap_action:
-                action: none
-              hold_action:
-                action: none
-              card_mod:
-                style:
-                  .: |
-                    {% set hover = 'true' %}
-                    {% set stating = 'false' %}
-                    {% include 'chip_settings_style.jinja' %}
-          - type: template
-            icon: mdi:tree
-            entity: input_boolean.homepod_gostinaia_les
-            tap_action:
-              action: toggle
-            double_tap_action:
-              action: none
-            hold_action:
-              action: none
-            card_mod:
-              style:
-                .: |
-                  {% set hover = 'true' %}
-                  {% set stating = 'false' %}
-                  {% include 'chip_settings_style.jinja' %}
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: binary_sensor.multirum_homepod
-                state: "off"
-            chip:
-              type: template
-              icon: mdi:home-sound-in
-              picture: /local/png_icons/homepod_stereo_play_big.png
-              entity: input_boolean.multirum_homepod
-              tap_action:
-                action: toggle
-              double_tap_action:
-                action: none
-              hold_action:
-                action: none
-              card_mod:
-                style:
-                  .: |
-                    {% set hover = 'true' %}
-                    {% set stating = 'false' %}
-                    {% include 'chip_settings_style.jinja' %}
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: binary_sensor.multirum_homepod
-                state: "on"
-            chip:
-              type: template
-              tap_action:
-                action: navigate
-                navigation_path: "#multiroom"
-              icon: mdi:dots-horizontal
-              icon_color: "1"
-              hold_action:
-                action: none
-              double_tap_action:
-                action: none
-              card_mod:
-                style:
-                  .: |
-                    {% set hover = 'true' %}
-                    {% set stating = 'false' %}
-                    {% include 'chip_settings_style.jinja' %}
-        alignment: center
-        card_mod:
-          style:
-            mushroom-template-chip:nth-child(1)$: |
-              {% set opacity = 0 %}
-              {% include 'shadow_chip_icon.jinja' %}
-            mushroom-template-chip:nth-child(2)$: |
-              {% set opacity = 0 %}
-              {% include 'shadow_chip_icon.jinja' %}
-            mushroom-template-chip:nth-child(3)$: |
-              {% set opacity = 0 %}
-              {% include 'shadow_chip_icon.jinja' %}
-            mushroom-template-chip:nth-child(4)$: |
-              {% set opacity = 0 %}
-              {% include 'shadow_chip_icon.jinja' %}
-            mushroom-template-chip:nth-child(5)$: |
-              {% set opacity = 0 %}
-              {% include 'shadow_chip_icon.jinja' %}
-            mushroom-template-chip:nth-child(6)$: |
-              {% set opacity = 0 %}
-              {% include 'shadow_chip_icon.jinja' %}
-            .: |
-
-              {% set chip_height = 40 %}
-              {% set chip_padding = 5 %}
-              {% set icon_size = 30 %}
-              {% set chip_spacing = 20 %}
-              {% include 'fixed_bottom_bar.jinja' %}
-    grid_options:
-      columns: 6
-      rows: auto
-  - type: vertical-stack
-    cards:
-      - type: custom:bubble-card
-        card_type: pop-up
-        hash: "#multiroom"
-        margin_top_mobile: calc(100vh - 350px)
-        margin_top_desktop: calc(100vh - 300px)
-        tap_action:
-          action: none
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: template
+        content: Homepod Mini (Гостиная)
         double_tap_action:
+          action: none
+        tap_action:
           action: none
         hold_action:
           action: none
-        show_header: false
-        close_by_clicking_outside: false
-        backdrop_blur: "5"
-        bg_blur: "100"
-        bg_opacity: "50"
-        button_type: name
-        styles: |
-          #root {
-            border: 1px solid rgba(var(--rgb-primary-text-color),0.1);
-            background: rgba(255, 255, 255, 0.1);
-            }
-      - type: custom:mushroom-chips-card
-        chips:
-          - type: template
-            content: Мультирум
-            double_tap_action:
-              action: none
-            tap_action:
-              action: none
-            hold_action:
-              action: none
-            icon: ""
-          - type: spacer
-          - type: back
-            card_mod:
-              style:
-                .: |
-                  {% set hover = 'true' %}
-                  {% set stating = 'false' %}
-                  {% include 'chip_settings_style.jinja' %}
-        layout_options:
-          grid_columns: full
+        icon: phu:homepod-mini
+      - type: spacer
+      - type: back
         card_mod:
           style:
-            mushroom-back-chip:nth-child(3)$: |
-              ha-state-icon {
-                --card-mod-icon: mdi:close;
-              }
             .: |
-              {% include 'pop_up_title.jinja' %}
-      - square: false
-        type: grid
-        cards:
-          - type: custom:vertical-stack-in-card
-            cards:
-              - type: custom:mushroom-template-card
-                primary: Гостиная
-                secondary: ""
-                icon: mdi:volume-high
-                badge_icon: ""
-                tap_action:
-                  action: none
-                icon_color: "1"
-                double_tap_action:
-                  action: none
-                badge_color: ""
-                fill_container: true
-                picture: ""
-                hold_action:
-                  action: none
-                layout: horizontal
-                card_mod:
-                  style:
-                    mushroom-shape-icon$: |
-                      .shape {
-                        --shape-color: none !important;
-                        --icon-symbol-size:28px;
-                        padding-right: 0px;
-
-                      }
-                    .: |
-                      ha-card { 
-                        background-color: rgba(255,255,255,0) ;
-                      } 
-              - type: custom:mushroom-media-player-card
-                entity: media_player.homepod_mini_gost
-                volume_controls:
-                  - volume_set
-                layout: horizontal
-                secondary_info: none
-                use_media_info: false
-                icon_type: none
-                primary_info: none
-                card_mod:
-                  style:
-                    mushroom-media-player-volume-control$:
-                      mushroom-slider$: |
-                        .slider {
-                          border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px !important;
-                        --main-color: #505050 !important;
-                        --bg-color: #50505055 !important;
-                          }
-                    .: |
-                      ha-card {
-                        margin-top: -15px;
-                        background-color: rgba(255,255,255,0) }};
-                        border-width: 0px;
-                          }
-            card_mod:
-              style:
-                .: |
-                  ha-card {
-                      background-color: rgba(var(--rgb-primary-text-color), 0.05) !important;
-                      border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
-                      border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
-                      }
-                  ha-card:hover {
-                      background-color: rgba(var(--rgb-primary-text-color), 0.1) !important;
-                  }  
-          - type: custom:vertical-stack-in-card
-            cards:
-              - type: custom:mushroom-template-card
-                secondary: ""
-                icon: mdi:volume-high
-                badge_icon: ""
-                tap_action:
-                  action: none
-                icon_color: "1"
-                double_tap_action:
-                  action: none
-                badge_color: ""
-                fill_container: true
-                picture: ""
-                hold_action:
-                  action: none
-                layout: horizontal
-                primary: Ванная
-                card_mod:
-                  style:
-                    mushroom-shape-icon$: |
-                      .shape {
-                        --shape-color: none !important;
-                        --icon-symbol-size:28px;
-                        padding-right: 0px;
-
-                      }
-                    .: |
-                      ha-card { 
-                        background-color: rgba(255,255,255,0) ;
-                      } 
-              - type: custom:mushroom-media-player-card
-                entity: media_player.homepod_mini_van
-                volume_controls:
-                  - volume_set
-                layout: horizontal
-                secondary_info: none
-                use_media_info: false
-                icon_type: none
-                primary_info: none
-                card_mod:
-                  style:
-                    mushroom-media-player-volume-control$:
-                      mushroom-slider$: |
-                        .slider {
-                          border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px !important;
-                        --main-color: #c8c8c8 !important;
-                        --bg-color: #c8c8c855 !important;
-                          }
-                    .: |
-                      ha-card {
-                        margin-top: -15px;
-                        background-color: rgba(255,255,255,0) }};
-                        border-width: 0px;
-                          }
-            card_mod:
-              style:
-                .: |
-                  ha-card {
-                      background-color: rgba(var(--rgb-primary-text-color), 0.05) !important;
-                      border: {{states('input_number.s_card_border_width')|int(0)}}px solid var(--ha-card-border-color, rgba(var(--rgb-primary-text-color),0.1)) !important;
-                      border-radius: {{states('input_number.s_card_border_radius') |int(20)}}px;   
-                      } 
-                  ha-card:hover {
-                      background-color: rgba(var(--rgb-primary-text-color), 0.1) !important;
-                  }  
-        columns: 2
+              {% set hover = 'true' %}
+              {% set stating = 'false' %}
+              {% include 'chip_settings_style.jinja' %}
+    card_mod:
+      style:
+        mushroom-back-chip:last-child$: |
+          ha-state-icon {
+            --card-mod-icon: mdi:close;
+          }
+        .: |
+          {% include 'pop_up_title.jinja' %}
     grid_options:
-      columns: full
+      columns: 12
+      rows: auto
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: template
+        entity: media_player.homepod_mini_gost
+        picture: |
+          {{state_attr(entity, 'entity_picture')}}
+        tap_action:
+          action: toggle
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: phu:homepod-mini
+        icon_color: "1"
+        card_mod:
+          style:
+            .: |
+              {% set scale = '1' %}
+              {% set hover = '' %}
+              {% set stating = 'true' %}
+              {% set state_on = '' %}
+              {% set color = 'rgba(120,120,120,0.2)' %}
+              {% set hover_color_off = 'rgba(120,120,120,0.3) !important' %}
+              {% include 'chip_settings_style.jinja' %}
+    alignment: center
+    card_mod:
+      style:
+        .: |
+          ha-card {
+             --chip-background: none !important;
+             --chip-border-radius: 1000px;
+             zoom: 6;
+             #--chip-height: 200px;
+             --chip-spacing: {{chip_spacing|default(0)}}px;
+             margin: 2px;
+             }
+  - type: custom:mushroom-template-card
+    features_position: bottom
+    entity: media_player.homepod_mini_gost
+    grid_options:
+      columns: 12
+      rows: auto
+    tap_action:
+      action: none
+    vertical: true
+    icon_tap_action:
+      action: none
+    primary: >
+      {% if state_attr(config.entity,'media_title') is none or 
+      state_attr(config.entity,'media_title') == ''%}  Homepod Mini (Гостиная)
+
+      {% elif state_attr(config.entity,'media_title') == 'Streaming with pyatv'
+      %} Стриминг из локальной сети
+
+      {% else%} {{state_attr(config.entity, 'media_title')}}
+
+      {% endif %}
+    secondary: >-
+      {{ state_attr(config.entity, 'media_artist') | default('Неизвестно',
+      true)}}
+    card_mod:
+      style: |
+        ha-card {
+          zoom: 1.5;
+          background: none;
+        }
+  - type: conditional
+    conditions:
+      - condition: or
+        conditions:
+          - condition: state
+            entity: media_player.homepod_mini_gost
+            state: playing
+          - condition: state
+            entity: media_player.homepod_mini_gost
+            state: paused
+    card:
+      entity: media_player.homepod_mini_gost
+      tap_action: none
+      hide:
+        icon: true
+        name: true
+        runtime: true
+        source: true
+        power: true
+        state_label: true
+        volume: true
+        info: true
+        progress: false
+        controls: true
+      more_info: false
+      type: custom:mini-media-player
+      toggle_power: false
+      group: true
+      volume_stateless: false
+      card_mod:
+        style:
+          .: |
+            ha-card {
+              height: var(--mmp-progress-height);
+              --mmp-accent-color: rgba(var(--rgb-primary-text-color),1);;
+              --ha-card-border-width: 0;
+              margin: 0px 30px; 
+            }
+  - type: custom:horizontal-stack-in-card
+    cards:
+      - type: custom:mushroom-template-card
+        features_position: bottom
+        entity: media_player.homepod_mini_gost
+        grid_options:
+          columns: 12
+          rows: auto
+        icon: mdi:skip-previous
+        tap_action:
+          action: perform-action
+          perform_action: media_player.media_previous_track
+          target:
+            entity_id: media_player.homepod_mini_gost
+        vertical: true
+        icon_tap_action:
+          action: none
+        color: white
+        card_mod:
+          style: |
+            ha-card {
+              zoom: 1.5;
+              background: none;
+            }
+      - type: custom:mushroom-template-card
+        features_position: bottom
+        entity: media_player.homepod_mini_gost
+        grid_options:
+          columns: 12
+          rows: auto
+        tap_action:
+          action: perform-action
+          perform_action: media_player.media_play_pause
+          target:
+            entity_id:
+              - media_player.homepod_mini_gost
+        vertical: true
+        icon: |
+          {% if is_state(entity, 'playing')%} fas:pause
+          {% elif is_state(entity, 'paused')%} fas:play
+          {% else %}fas:lock{% endif%}
+        color: white
+        card_mod:
+          style: |
+            ha-card {
+              zoom: 1.5;
+              background: none;
+            }
+      - type: custom:mushroom-template-card
+        features_position: bottom
+        entity: media_player.homepod_mini_gost
+        grid_options:
+          columns: 12
+          rows: auto
+        icon: mdi:skip-next
+        tap_action:
+          action: perform-action
+          perform_action: media_player.media_next_track
+          target:
+            entity_id: media_player.homepod_mini_gost
+        vertical: true
+        icon_tap_action:
+          action: none
+        color: white
+        card_mod:
+          style: |
+            ha-card {
+              zoom: 1.5;
+              background: none;
+            }
+    card_mod:
+      style: |
+        ha-card {
+         background: none !important;
+        }
+  - type: custom:mushroom-media-player-card
+    entity: media_player.homepod_mini_gost
+    volume_controls:
+      - volume_set
+    layout: horizontal
+    primary_info: none
+    secondary_info: none
+    icon_type: none
+    card_mod:
+      style:
+        mushroom-media-player-volume-control$: |
+          mushroom-slider {
+            --main-color: #505050 !important;
+            --bg-color: #50505055 !important;
+            --control-height: 25px !important;
+          }
+        .: |
+          ha-card {
+            background: transparent !important;
+            opacity: 100%;
+            margin: 0px 20px !important;
+            border-width: 0px;
+            margin: 0px 0px 0px;
+          }
+popup_mode: default
+card_layout: large
+slide_to_close_distance: "500"
