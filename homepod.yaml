@@ -36,6 +36,44 @@ cards:
           action: none
         icon: phu:homepod-mini
       - type: spacer
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: binary_sensor.multirum_homepod
+            state: "on"
+        chip:
+          type: template
+          hold_action:
+            action: none
+          double_tap_action:
+            action: none
+          icon: mdi:home-sound-in
+          icon_color: 120,120,120,0.5
+          picture: /local/png_icons/homepod_stereo.png
+          tap_action:
+            action: navigate
+            navigation_path: "#homepod_multiroom"
+          card_mod:
+            style:
+              .: |
+                {% set hover = 'true' %}
+                {% set stating = 'false' %}
+                {% include 'chip_settings_style.jinja' %}
+      - type: template
+        entity: media_player.homepod_mini_gost
+        double_tap_action:
+          action: none
+        tap_action:
+          action: more-info
+        hold_action:
+          action: none
+        icon: mdi:information
+        card_mod:
+          style:
+            .: |
+              {% set hover = 'true' %}
+              {% set stating = 'false' %}
+              {% include 'chip_settings_style.jinja' %}
       - type: back
         card_mod:
           style:
@@ -257,6 +295,109 @@ cards:
             border-width: 0px;
             margin: 0px 0px 0px;
           }
+  - type: custom:horizontal-stack-in-card
+    cards:
+      - type: conditional
+        conditions:
+          - condition: user
+            users:
+              - 1a1897c1b5d24702ae00645a47e23e99
+              - c95afac8be3b49daa933c3401afa2ad8
+        card:
+          type: custom:mushroom-template-card
+          features_position: bottom
+          entity: input_boolean.homepod_play_stanislav
+          grid_options:
+            columns: 12
+            rows: auto
+          icon: mdi:face-man-shimmer
+          tap_action:
+            action: toggle
+          vertical: true
+          icon_tap_action:
+            action: none
+          color: white
+          card_mod:
+            style: |
+              ha-card {
+                zoom: 1.5;
+                background: none;
+              }
+      - type: conditional
+        conditions:
+          - condition: user
+            users:
+              - 74b41be9c40e417888b511bff15eebe4
+        card:
+          type: custom:mushroom-template-card
+          features_position: bottom
+          entity: input_boolean.homepod_play_melkaia
+          grid_options:
+            columns: 12
+            rows: auto
+          icon: mdi:face-woman-shimmer
+          tap_action:
+            action: toggle
+          vertical: true
+          icon_tap_action:
+            action: none
+          color: white
+          card_mod:
+            style: |
+              ha-card {
+                zoom: 1.5;
+                background: none;
+              }
+      - type: conditional
+        conditions:
+          - condition: user
+            users:
+              - 1a1897c1b5d24702ae00645a47e23e99
+              - c95afac8be3b49daa933c3401afa2ad8
+        card:
+          type: custom:mushroom-template-card
+          features_position: bottom
+          entity: input_boolean.novaia_muzyka_homepod_gostinaia
+          grid_options:
+            columns: 12
+            rows: auto
+          icon: mdi:star-circle
+          tap_action:
+            action: toggle
+          vertical: true
+          icon_tap_action:
+            action: none
+          color: white
+          card_mod:
+            style: |
+              ha-card {
+                zoom: 1.5;
+                background: none;
+              }
+      - type: custom:mushroom-template-card
+        features_position: bottom
+        entity: input_boolean.homepod_gostinaia_les
+        grid_options:
+          columns: 12
+          rows: auto
+        icon: ph:tree-fill
+        tap_action:
+          action: toggle
+        vertical: true
+        icon_tap_action:
+          action: none
+        color: white
+        card_mod:
+          style: |
+            ha-card {
+              zoom: 1.5;
+              background: none;
+            }
+    card_mod:
+      style: |
+        ha-card {
+         background: none !important;
+        }
 popup_mode: default
 card_layout: large
 slide_to_close_distance: "500"
