@@ -1,8 +1,6 @@
 type: custom:bubble-card
 card_type: pop-up
-hash: "#homepod_gost"
-margin_top_mobile: auto
-margin_top_desktop: auto
+hash: '#homepod_gost'
 tap_action:
   action: none
 double_tap_action:
@@ -10,15 +8,12 @@ double_tap_action:
 hold_action:
   action: none
 show_header: false
-close_by_clicking_outside: false
-backdrop_blur: "5"
-bg_blur: "100"
-bg_opacity: "50"
+close_by_clicking_outside: true
 button_type: name
 styles: |
   #root {
     border: 1px solid rgba(var(--rgb-primary-text-color),0.1);
-    background: rgba(255, 255, 255, 0.1); 
+      
     }
 sub_button:
   main: []
@@ -27,7 +22,9 @@ cards:
   - type: custom:mushroom-chips-card
     chips:
       - type: template
-        content: Homepod Mini (Гостиная)
+        content: >-
+          Homepod Mini {% if is_state('binary_sensor.multirum_homepod','on')
+          %}{% else %}(Гостиная){% endif %}
         double_tap_action:
           action: none
         tap_action:
@@ -40,7 +37,7 @@ cards:
         conditions:
           - condition: state
             entity: binary_sensor.multirum_homepod
-            state: "on"
+            state: 'on'
         chip:
           type: template
           hold_action:
@@ -52,13 +49,28 @@ cards:
           picture: /local/png_icons/homepod_stereo.png
           tap_action:
             action: navigate
-            navigation_path: "#homepod_multiroom"
+            navigation_path: '#homepod_multiroom'
           card_mod:
             style:
               .: |
                 {% set hover = 'true' %}
                 {% set stating = 'false' %}
                 {% include 'chip_settings_style.jinja' %}
+      - type: template
+        entity: sensor.homepod_gostinaia_trek
+        double_tap_action:
+          action: none
+        tap_action:
+          action: more-info
+        hold_action:
+          action: none
+        icon: mdi:clock-outline
+        card_mod:
+          style:
+            .: |
+              {% set hover = 'true' %}
+              {% set stating = 'false' %}
+              {% include 'chip_settings_style.jinja' %}
       - type: template
         entity: media_player.homepod_mini_gost
         double_tap_action:
@@ -92,42 +104,31 @@ cards:
     grid_options:
       columns: 12
       rows: auto
-  - type: custom:mushroom-chips-card
-    chips:
-      - type: template
-        entity: media_player.homepod_mini_gost
-        picture: |
-          {{state_attr(entity, 'entity_picture')}}
-        tap_action:
-          action: toggle
-        hold_action:
-          action: none
-        double_tap_action:
-          action: none
-        icon: phu:homepod-mini
-        icon_color: "1"
-        card_mod:
-          style:
-            .: |
-              {% set scale = '1' %}
-              {% set hover = '' %}
-              {% set stating = 'true' %}
-              {% set state_on = '' %}
-              {% set color = 'rgba(120,120,120,0.2)' %}
-              {% set hover_color_off = 'rgba(120,120,120,0.3) !important' %}
-              {% include 'chip_settings_style.jinja' %}
-    alignment: center
+  - type: custom:mini-media-player
+    entity: media_player.homepod_mini_gost
+    background: /local/cards_img/homepod_gost.png
+    artwork: full-cover
+    hide:
+      name: true
+      info: true
+      controls: true
+      source: true
+      power: true
+      volume: true
+      progress: true
+      icon: true
+    toggle_power: false
+    tap_action:
+      action: none
     card_mod:
-      style:
-        .: |
-          ha-card {
-             --chip-background: none !important;
-             --chip-border-radius: 1000px;
-             zoom: 6;
-             #--chip-height: 200px;
-             --chip-spacing: {{chip_spacing|default(0)}}px;
-             margin: 2px;
-             }
+      style: |
+        ha-card {
+          aspect-ratio: 1 / 1;
+          {% if is_state(config.entity, 'playing') %}
+          {% else %}
+          opacity: 0.4;
+          {% endif %}
+        }
   - type: custom:mushroom-template-card
     features_position: bottom
     entity: media_player.homepod_mini_gost
@@ -136,7 +137,6 @@ cards:
       rows: auto
     tap_action:
       action: none
-    vertical: true
     icon_tap_action:
       action: none
     primary: >
@@ -156,7 +156,7 @@ cards:
       style: |
         ha-card {
           zoom: 1.5;
-          background: none;
+          background: none !important;
         }
   - type: conditional
     conditions:
@@ -218,7 +218,7 @@ cards:
           style: |
             ha-card {
               zoom: 1.5;
-              background: none;
+              background: none !important;
             }
       - type: custom:mushroom-template-card
         features_position: bottom
@@ -242,7 +242,7 @@ cards:
           style: |
             ha-card {
               zoom: 1.5;
-              background: none;
+              background: none !important;
             }
       - type: custom:mushroom-template-card
         features_position: bottom
@@ -264,7 +264,7 @@ cards:
           style: |
             ha-card {
               zoom: 1.5;
-              background: none;
+              background: none !important;
             }
     card_mod:
       style: |
@@ -303,6 +303,8 @@ cards:
             users:
               - 1a1897c1b5d24702ae00645a47e23e99
               - c95afac8be3b49daa933c3401afa2ad8
+              - 1a1897c1b5d24702ae00645a47e23e99
+              - 1a1897c1b5d24702ae00645a47e23e99
         card:
           type: custom:mushroom-template-card
           features_position: bottom
@@ -321,7 +323,7 @@ cards:
             style: |
               ha-card {
                 zoom: 1.5;
-                background: none;
+                background: none !important;
               }
       - type: conditional
         conditions:
@@ -346,7 +348,7 @@ cards:
             style: |
               ha-card {
                 zoom: 1.5;
-                background: none;
+                background: none !important;
               }
       - type: conditional
         conditions:
@@ -372,7 +374,7 @@ cards:
             style: |
               ha-card {
                 zoom: 1.5;
-                background: none;
+                background: none !important;
               }
       - type: custom:mushroom-template-card
         features_position: bottom
@@ -391,13 +393,13 @@ cards:
           style: |
             ha-card {
               zoom: 1.5;
-              background: none;
+              background: none !important;
             }
     card_mod:
       style: |
         ha-card {
          background: none !important;
         }
-popup_mode: default
+popup_mode: fit-content
 card_layout: large
-slide_to_close_distance: "500"
+slide_to_close_distance: '500'
