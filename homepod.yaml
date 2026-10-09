@@ -122,6 +122,9 @@ cards:
       action: none
     card_mod:
       style: |
+        :host {
+          --mini-media-player-overlay-color: transparent;
+        }
         ha-card {
           aspect-ratio: 1 / 1;
           {% if is_state(config.entity, 'playing') %}
@@ -194,7 +197,7 @@ cards:
               height: var(--mmp-progress-height);
               --mmp-accent-color: rgba(var(--rgb-primary-text-color),1);;
               --ha-card-border-width: 0;
-              margin: 0px 30px; 
+              margin: 0px 15px; 
             }
   - type: custom:horizontal-stack-in-card
     cards:
@@ -291,9 +294,9 @@ cards:
           ha-card {
             background: transparent !important;
             opacity: 100%;
-            margin: 0px 20px !important;
+            margin: 0px 0px !important;
             border-width: 0px;
-            margin: 0px 0px 0px;
+            
           }
   - type: custom:horizontal-stack-in-card
     cards:
