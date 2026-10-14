@@ -106,7 +106,7 @@ cards:
       rows: auto
   - type: custom:mini-media-player
     entity: media_player.homepod_mini_gost
-    background: /local/cards_img/homepod_gost.png
+    background: /local/cards_img/HP2_BLACK.png
     artwork: full-cover
     hide:
       name: true
@@ -216,7 +216,10 @@ cards:
         vertical: true
         icon_tap_action:
           action: none
-        color: white
+        color: |-
+          {% if is_state(entity, 'playing')%} white
+          {% elif is_state(entity, 'paused')%} white
+          {% else %}disabled{% endif%}
         card_mod:
           style: |
             ha-card {
@@ -239,8 +242,11 @@ cards:
         icon: |
           {% if is_state(entity, 'playing')%} fas:pause
           {% elif is_state(entity, 'paused')%} fas:play
-          {% else %}fas:lock{% endif%}
-        color: white
+          {% else %}fas:play{% endif%}
+        color: |-
+          {% if is_state(entity, 'playing')%} white
+          {% elif is_state(entity, 'paused')%} white
+          {% else %}disabled{% endif%}
         card_mod:
           style: |
             ha-card {
@@ -262,13 +268,23 @@ cards:
         vertical: true
         icon_tap_action:
           action: none
-        color: white
+        color: |-
+          {% if is_state(entity, 'playing')%} white
+          {% elif is_state(entity, 'paused')%} white
+          {% else %}disabled{% endif%}
         card_mod:
           style: |
             ha-card {
               zoom: 1.5;
               background: none !important;
             }
+    visibility:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: media_player.homepod_mini_gost
+            state:
+              - unavailable
     card_mod:
       style: |
         ha-card {
@@ -298,87 +314,53 @@ cards:
             border-width: 0px;
             
           }
+    visibility:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: media_player.homepod_mini_gost
+            state:
+              - unavailable
   - type: custom:horizontal-stack-in-card
     cards:
-      - type: conditional
-        conditions:
-          - condition: user
-            users:
-              - 1a1897c1b5d24702ae00645a47e23e99
-              - c95afac8be3b49daa933c3401afa2ad8
-              - 1a1897c1b5d24702ae00645a47e23e99
-              - 1a1897c1b5d24702ae00645a47e23e99
-        card:
-          type: custom:mushroom-template-card
-          features_position: bottom
-          entity: input_boolean.homepod_play_stanislav
-          grid_options:
-            columns: 12
-            rows: auto
-          icon: mdi:face-man-shimmer
-          tap_action:
-            action: toggle
-          vertical: true
-          icon_tap_action:
-            action: none
-          color: white
-          card_mod:
-            style: |
-              ha-card {
-                zoom: 1.5;
-                background: none !important;
-              }
-      - type: conditional
-        conditions:
-          - condition: user
-            users:
-              - 74b41be9c40e417888b511bff15eebe4
-        card:
-          type: custom:mushroom-template-card
-          features_position: bottom
-          entity: input_boolean.homepod_play_melkaia
-          grid_options:
-            columns: 12
-            rows: auto
-          icon: mdi:face-woman-shimmer
-          tap_action:
-            action: toggle
-          vertical: true
-          icon_tap_action:
-            action: none
-          color: white
-          card_mod:
-            style: |
-              ha-card {
-                zoom: 1.5;
-                background: none !important;
-              }
-      - type: conditional
-        conditions:
-          - condition: user
-            users:
-              - 1a1897c1b5d24702ae00645a47e23e99
-              - c95afac8be3b49daa933c3401afa2ad8
-        card:
-          type: custom:mushroom-template-card
-          features_position: bottom
-          entity: input_boolean.novaia_muzyka_homepod_gostinaia
-          grid_options:
-            columns: 12
-            rows: auto
-          icon: mdi:star-circle
-          tap_action:
-            action: toggle
-          vertical: true
-          icon_tap_action:
-            action: none
-          color: white
-          card_mod:
-            style: |
-              ha-card {
-                zoom: 1.5;
-                background: none !important;
-              }
+      - type: custom:mushroom-template-card
+        features_position: bottom
+        entity: input_boolean.homepod_play_stanislav
+        grid_options:
+          columns: 12
+          rows: auto
+        icon: mdi:face-man-shimmer
+        tap_action:
+          action: toggle
+        vertical: true
+        icon_tap_action:
+          action: none
+        color: white
+        card_mod:
+          style: |
+            ha-card {
+              zoom: 1.5;
+              background: none !important;
+            }
+      - type: custom:mushroom-template-card
+        features_position: bottom
+        entity: input_boolean.novaia_muzyka_homepod_gostinaia
+        grid_options:
+          columns: 12
+          rows: auto
+        icon: mdi:star-circle
+        tap_action:
+          action: toggle
+        vertical: true
+        icon_tap_action:
+          action: none
+        color: white
+        card_mod:
+          style: |
+            ha-card {
+              zoom: 1.5;
+              background: none !important;
+            }
       - type: custom:mushroom-template-card
         features_position: bottom
         entity: input_boolean.homepod_gostinaia_les
@@ -403,6 +385,13 @@ cards:
         ha-card {
          background: none !important;
         }
+    visibility:
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: media_player.homepod_mini_gost
+            state:
+              - unavailable
 popup_mode: fit-content
 card_layout: large
 slide_to_close_distance: '500'
